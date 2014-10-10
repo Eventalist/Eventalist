@@ -7,7 +7,8 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
-require_relative './lib/connection-tim'
+# require_relative './lib/connection-tim'
+require_relative './lib/connection-eric'
 require_relative './lib/methods'
 
 after do
@@ -19,7 +20,8 @@ before do
 end
 
 get("/") do
-  html = File.read('index.html')
+  content_type :html
+  html = File.read('./views/index.html')
 end
 
 get("/events") do
