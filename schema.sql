@@ -1,5 +1,6 @@
 CREATE DATABASE eventalist;
 
+
 \c eventalist
 
 CREATE TABLE events (
@@ -28,5 +29,3 @@ CREATE TABLE users (
   name varchar(255),
   email varchar(255)
 );
-
-
