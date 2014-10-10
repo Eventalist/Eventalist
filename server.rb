@@ -17,6 +17,10 @@ before do
   content_type :json
 end
 
+get("/") do
+  html = File.open('index.html')
+end
+
 get("/events") do
   Event.all.to_json
 end
