@@ -1,4 +1,4 @@
-require "active record"
+require "active_record"
 
 class User < ActiveRecord::Base
 	self.has_many(:subscriptions)
