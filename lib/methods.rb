@@ -3,15 +3,15 @@ require "active_record"
 class User < ActiveRecord::Base
 	self.has_many(:subscriptions)
 	self.has_many(:events)
-end 
+end
 
 class Event < ActiveRecord::Base
 end
 
 class Subscription < ActiveRecord::Base
-end 
+end
 
-class Category <ActiveRecord::Base
+class Category < ActiveRecord::Base
 		self.has_many(:events)
 		self.has_many(:subscriptions)
-end 
+end
