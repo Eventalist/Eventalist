@@ -1,10 +1,6 @@
 require "active_record"
-require_relative "./lib/connection-tess"
 require 'pry'
-<<<<<<< HEAD
-require_relative "./lib/connection-tim"
-=======
->>>>>>> 1a42c6ed866328f2ce8d77c88130a25dcdb61641
+
 # require_relative "/lib/connection-tess"
 require_relative "./lib/connection-yoshie"
 # require_relative "/lib/connection-eric"
