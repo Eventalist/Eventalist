@@ -9,6 +9,7 @@ User.delete_all
 Category.delete_all
 Subscription.delete_all
 
+
 yoshie = User.create({name: 'yoshie'})
 tess = User.create({name: 'tess'})
 tim = User.create({name: 'tim'})
