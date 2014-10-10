@@ -7,7 +7,7 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
-require_relative './lib/connection-tim'
+require_relative './lib/connection-yoshie'
 require_relative './lib/methods'
 
 after do
@@ -19,7 +19,11 @@ before do
 end
 
 get("/") do
-  html = File.read('index.html')
+
+  content_type :html
+  
+  File.read('./views/index.html')
+
 end
 
 get("/events") do
@@ -27,11 +31,13 @@ get("/events") do
 end
 
 post("/subscriptions") do
+ 
   subscription = Subscription.create(subscription_params(params))
 
   subscription.to_json
+
 end
 
-def subscription_params(params)
-  params.slice(*Subscription.column_names)
-end
+# def subscription_params(params)
+#   params.slice(*Subscription.column_names)
+# end
