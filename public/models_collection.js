@@ -1,5 +1,5 @@
 var EventModel = Backbone.Model.extend({
-	urlRoot: '/events'
+	// urlRoot: '/events'
 });
 
 var EventCollection = Backbone.Collection.extend({
