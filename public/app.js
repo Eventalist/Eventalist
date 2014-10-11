@@ -64,68 +64,68 @@ var EventView = Backbone.View.extend({
 
 
 
-// ALL EVENTS LIST VIEW-------------------------
+//ALL EVENTS LIST VIEW-------------------------
 
-// var EventsView = Backbone.View.extend({
-
-// 	initialize: function(){
-// 		this.listenTo(this.collection, 'all', this.render)
-// 		this.collection.fetch()
-	
-// 	},
-
-// 	render: function(){
-
-// 		var self = this
-		
-// 		_.each(this.collection.models, function(event){
-
-// 			var eventView = new EventView({model: event})
-// 			eventView.render();
-// 			self.$el.append( eventView.el )
-
-// 		})
-
-// 	}
-
-// })
-
-
-// var allEventsList = new EventsView({collection: eventsCollection, el: $('ul.events')})
-
-var PaginatedEventView = Backbone.View.extend({
+var EventsView = Backbone.View.extend({
 
 	initialize: function(){
-		console.log('new paginated view initialized')
-		this.listenTo(this.collection, 'all', this.paginate(10, 1))
+		this.listenTo(this.collection, 'all', this.render)
 		this.collection.fetch()
+	
 	},
 
-	 paginate : function(perPage, page) {
-       page = page-1;
-       var collection = this;
-       collection = _(collection.rest(perPage*page));
-       collection = _(collection.first(perPage));    
-       return collection.map( function(model) { return model.toJSON() } ); 
-    },
+	render: function(){
 
-	// render: function(){
+		var self = this
 		
-	// 	for(var i = 0, i < 10; i++){
+		_.each(this.collection.models, function(event){
+
+			var eventView = new EventView({model: event})
+			eventView.render();
+			self.$el.append( eventView.el )
+
+		})
+
+	}
+
+})
+
+
+var allEventsList = new EventsView({collection: eventsCollection, el: $('ul.events')})
+
+// var PaginatedEventView = Backbone.View.extend({
+
+// 	initialize: function(){
+// 		console.log('new paginated view initialized')
+// 		this.listenTo(this.collection, 'all', this.paginate(10, 1))
+// 		this.collection.fetch()
+// 	},
+
+// 	 paginate : function(perPage, page) {
+//        page = page-1;
+//        var collection = this;
+//        collection = _(collection.rest(perPage*page));
+//        collection = _(collection.first(perPage));    
+//        return collection.map( function(model) { return model.toJSON() } ); 
+//     },
+
+// 	// render: function(){
+		
+// 	// 	for(var i = 0, i < 10; i++){
 			
 
 
-	// 		_.each(this.collection.models, function(event){
-	// 			var eventView = new EventView({model: event})
-	// 			eventView.render()
-	// 			self.$el.append( eventView.el )
+// 	// 		_.each(this.collection.models, function(event){
+// 	// 			var eventView = new EventView({model: event})
+// 	// 			eventView.render()
+// 	// 			self.$el.append( eventView.el )
 
-	// 		})
-	// 	}
+// 	// 		})
+// 	// 	}
 
-	// },
+// 	// },
 
-})
+// })
 
 
 
@@ -155,6 +155,7 @@ $("button#subscribeUser").on("click", function(){
 	var email = $("input.email").val();
 
 	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
+
 		
 		if ($("input.art").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
@@ -171,8 +172,10 @@ $("button#subscribeUser").on("click", function(){
 		$("input.art").prop("checked", false);
 		$("input.music").prop("checked", false);
 		$("input.theater").prop("checked", false);
-
-		$.get('http://127.0.0.1:9292/users/:' + user.id + '/subscriptions')
+		var sendEmail = function(){
+			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
+		}
+		setTimeout(sendEmail, 2000);
 
 	})
 
