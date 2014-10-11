@@ -64,12 +64,7 @@ def parseNYTimes(events, cat)
   end
 end
 
-def newEvents()
-  old_events = Event.all()
-  
-  if Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
-    old_events.delete_all()
-
+def getEvents()
     pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
     parseNYTimes(pop, 'music')
 
@@ -78,6 +73,15 @@ def newEvents()
 
     theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
     parseNYTimes(theater, 'theater')
+end
+
+def newEvents()
+  old_events = Event.all()
+  if old_events.length == 0 
+    getEvents()
+  elsif Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
+    old_events.delete_all()
+    getEvents()
   end
 end
 
