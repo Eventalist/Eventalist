@@ -20,6 +20,7 @@ var EventCollection = Backbone.Collection.extend({
 	model: EventModel
 })
 
+var eventsCollection = new EventCollection()
 
 // EVENT LIST VIEW-------------------------
 
@@ -28,6 +29,16 @@ var EventView = Backbone.View.extend({
 	tag: 'li',
 
 	template: _.template( $('#template-event-list').html() ),
+
+	events: {
+		"click button.moreInfo": "modalView"
+	},
+
+	modalView: function(){
+
+		var eventModalView = new ModalView({ model = this.model }) 
+
+	},
 
 	initialize: function(){
 		console.log('new event view initialized')
@@ -40,4 +51,48 @@ var EventView = Backbone.View.extend({
 
 })
 
-//
+// ALL EVENTS LIST VIEW-------------------------
+
+var EventsView = Backbone.View.extend({
+
+	initialize: function(){
+		var self = this
+
+		console.log('all events list initialized')
+		this.collection.fetch()
+		this.collection.render()
+	},
+
+	render: function(){
+
+		_.each(this.collection.models, function(event){
+
+			var eventView = new EventView({model: event})
+			eventView.render();
+			self.$el.append( eventView.el )
+
+			console.log(eventView)
+
+		})
+
+	}
+
+})
+
+
+var allEventsList = new EventsView({collection: eventsCollection, el: $('ul.events')})
+
+// ALL EVENTS LIST VIEW-------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
