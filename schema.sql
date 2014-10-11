@@ -1,19 +1,21 @@
 CREATE DATABASE eventalist;
 
-
 \c eventalist
 
 CREATE TABLE events (
   id serial primary key,
   category_id integer,
   date varchar(255),
+  title varchar(255),
+  description text,
+  venue varchar(255),
+  venue_website varchar(255),
   address varchar(255),
   latitude varchar(255),
   longitude varchar(255),
   price varchar(255),
   link text,
-  title varchar(255),
-  description text
+  created_at timestamp
 );
 
 CREATE TABLE categories (
