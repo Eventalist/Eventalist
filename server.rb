@@ -123,7 +123,7 @@ get ("/users/:id/subscriptions") do
   
   subscriptions = user.subscriptions
   
-  categories = [].join(" & ")
+  categories = []
   subscriptions.each do |sub|
     categories.push(sub.category.name)
   end 
@@ -133,7 +133,7 @@ get ("/users/:id/subscriptions") do
   to: "#{user.name} <#{user.email}>",
   subject: "Thanks for subscribing to Eventalist!",
   text: "Hi #{user.name},\n\n
-  You are now subscribed to #{categories}. Enjoy using Eventalist!"
+  You are now subscribed to #{categories.join(" & ")}. Enjoy using Eventalist!"
 }
 
 url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
