@@ -6,8 +6,10 @@ CREATE DATABASE eventalist;
 CREATE TABLE events (
   id serial primary key,
   category_id integer,
-  date varchar(50),
+  date varchar(255),
   address varchar(255),
+  latitude varchar(255),
+  longitude varchar(255),
   price varchar(255),
   link text,
   title varchar(255),
