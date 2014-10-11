@@ -55,7 +55,7 @@ var EventView = Backbone.View.extend({
 
 	},
 
-	initialize: function()
+	initialize: function(){
 
 		this.render()
 
