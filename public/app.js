@@ -139,11 +139,7 @@ $("button#subscribeUser").on("click", function(){
 			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
 		}
 		setTimeout(sendEmail, 2000);
-
-<<<<<<< HEAD
-		$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
-=======
->>>>>>> 32ae3fee2e6f4e339ace09b5f2ad93981b9c484a
+		
 	})
 
 
