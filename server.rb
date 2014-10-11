@@ -7,7 +7,13 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
+<<<<<<< HEAD
 require_relative './lib/connection-tim'
+=======
+require_relative './lib/connection-tess'
+# require_relative './lib/connection-yoshie'
+# require_relative './lib/connection-eric'
+>>>>>>> 32ae3fee2e6f4e339ace09b5f2ad93981b9c484a
 require_relative './lib/methods'
 
 after do
@@ -99,20 +105,10 @@ get("/events") do
 end
 
 post("/subscriptions") do
+  
   subscription = Subscription.create(subscription_params(params))
+  
 
-  params = {
-    from: "Mailgun Sandbox <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
-    to: "#{subscription.user.name} <#{subscription.user.email}>",
-    subject: "You are now subscribed to Eventalist: #{subscription.category.name}",
-    text: "Hi #{subscription.user.name},\n\n
-    Thanks for subscribing to Eventalist!"
-  }
-
-  url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
-  auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
-
-  HTTParty.post(url, {body: params, basic_auth: auth})
   subscription.to_json
 
 end
@@ -120,9 +116,40 @@ end
 post("/users") do
 
   user = User.create(user_params(params))
+  
 
   user.to_json
 end
+
+get ("/users/:id/subscriptions") do 
+
+  user = User.find(params["id"])
+  
+  subscriptions = user.subscriptions
+  
+  categories = []
+  subscriptions.each do |sub|
+    categories.push(sub.category.name)
+  end 
+
+
+  email_info = {
+  from: "Mailgun Sandbox <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
+  to: "#{user.name} <#{user.email}>",
+  subject: "Thanks for subscribing to Eventalist!",
+  text: "Hi #{user.name},\n\n
+  You are now subscribed to #{categories.join(" & ")}. Enjoy using Eventalist!"
+  }
+
+  url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
+  auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
+
+  HTTParty.post(url, {body: email_info, basic_auth: auth})
+
+
+  return ("email has been sent!").to_JSON
+
+end 
 
 def subscription_params(params)
   params.slice(*Subscription.column_names)

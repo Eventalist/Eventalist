@@ -126,6 +126,7 @@ $("button#subscribeUser").on("click", function(){
 	var name = $("input.name").val();
 	var email = $("input.email").val();
 
+
 	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){
 			if ($("input.art").prop("checked") == true){
 		$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
@@ -142,6 +143,11 @@ $("button#subscribeUser").on("click", function(){
 		$("input.art").prop("checked", false);
 		$("input.music").prop("checked", false);
 		$("input.theater").prop("checked", false);
+		var sendEmail = function(){
+			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
+		}
+		setTimeout(sendEmail, 2000);
+
 	})
 
 
