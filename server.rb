@@ -7,7 +7,14 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
+<<<<<<< HEAD
 require_relative './lib/connection-yoshie'
+=======
+
+require_relative './lib/connection-tim'
+
+# require_relative './lib/connection-yoshie'
+>>>>>>> 0442f262ca545992a8c8f2772952db9bb01ec301
 # require_relative './lib/connection-eric'
 
 require_relative './lib/methods'
@@ -101,9 +108,9 @@ get("/events") do
 end
 
 post("/subscriptions") do
-  
+
   subscription = Subscription.create(subscription_params(params))
-  
+
 
   subscription.to_json
 
@@ -112,21 +119,21 @@ end
 post("/users") do
 
   user = User.create(user_params(params))
-  
+
 
   user.to_json
 end
 
-get ("/users/:id/subscriptions") do 
+get ("/users/:id/subscriptions") do
 
   user = User.find(params["id"])
-  
+
   subscriptions = user.subscriptions
-  
+
   categories = []
   subscriptions.each do |sub|
     categories.push(sub.category.name)
-  end 
+  end
 
 
   email_info = {
@@ -145,7 +152,7 @@ get ("/users/:id/subscriptions") do
 
   return ("email has been sent!").to_JSON
 
-end 
+end
 
 def subscription_params(params)
   params.slice(*Subscription.column_names)

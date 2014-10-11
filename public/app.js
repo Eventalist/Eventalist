@@ -1,8 +1,11 @@
 // EVENT MODEL----------------------------
 
 var EventModel = Backbone.Model.extend({
-	
+
 	initialize: function(){
+
+
+
 
 	},
 
@@ -13,12 +16,12 @@ var EventModel = Backbone.Model.extend({
 		address: 'NYC',
 		price: '$0',
 		link: 'http://www.gooogle.com',
-		description: 'party party', 
+		description: 'party party',
 		venue: "",
 		venure_website: "",
 		latitude: "440.7127",
 		longitude: "74.0059",
-	}	
+	}
 
 });
 
@@ -37,7 +40,7 @@ var eventsCollection = new EventCollection()
 // EVENT LIST VIEW-------------------------
 
 var EventView = Backbone.View.extend({
-	
+
 	tag: 'li',
 
 	template: _.template( $('#template-event-list').html() ),
@@ -48,12 +51,14 @@ var EventView = Backbone.View.extend({
 
 	modalView: function(){
 
-		var eventModalView = new ModalView({ model: this.model }) 
+		var eventModalView = new ModalView({ model: this.model })
 
 	},
 
 	initialize: function(){
-			this.render()
+
+		this.render()
+
 	},
 
 	render: function(){
@@ -69,21 +74,21 @@ var EventView = Backbone.View.extend({
 var EventsView = Backbone.View.extend({
 
 	initialize: function(){
+
 		this.listenTo(this.collection, 'all', this.render)
 		this.collection.fetch()
-	
+
 	},
 
 	render: function(){
 
 		var self = this
-		
+
 		_.each(this.collection.models, function(event){
 
 			var eventView = new EventView({model: event})
 			eventView.render();
 			self.$el.append( eventView.el )
-
 		})
 
 	}
@@ -140,7 +145,7 @@ var ModalView = Backbone.View.extend({
 	},
 
 	render: function(){
-		
+
 		this.$el.html( this.template(this.model.attributes) )
 		$('div#modalEventView').html(this.$el)
 	},
@@ -151,15 +156,17 @@ var ModalView = Backbone.View.extend({
 // Subscription ------------------------
 
 $("button#subscribeUser").on("click", function(){
-	var name = $("input.name").val();	
+
+	var name = $("input.name").val();
 	var email = $("input.email").val();
+
 
 	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
 
 		
 		if ($("input.art").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
-		};
+
 		if ($("input.music").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
 		};
