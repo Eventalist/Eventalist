@@ -136,13 +136,13 @@ $("button#subscribeUser").on("click", function(){
 		if ($("input.theater").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
 		};
-
+		$("input.name").val("");
+		$("input.email").val("");
+		$("input.art").prop("checked", false);
+		$("input.music").prop("checked", false);
+		$("input.theater").prop("checked", false);
 	})
-	$("input.name").val("");
-	$("input.email").val("");
-	$("input.art").prop("checked", false);
-	$("input.music").prop("checked", false);
-	$("input.theater").prop("checked", false);
+
 
 })
 
