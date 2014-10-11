@@ -3,7 +3,10 @@
 var EventModel = Backbone.Model.extend({
 
 	initialize: function(){
-		// console.log('event model initialized')
+
+
+
+
 	},
 
 	defaults: {
@@ -52,9 +55,10 @@ var EventView = Backbone.View.extend({
 
 	},
 
-	initialize: function(){
-		// console.log('new event view initialized')
+	initialize: function()
+
 		this.render()
+
 	},
 
 	render: function(){
@@ -71,7 +75,6 @@ var EventsView = Backbone.View.extend({
 
 	initialize: function(){
 
-		// console.log('all events list initialized')
 		this.listenTo(this.collection, 'all', this.render)
 		this.collection.fetch()
 
@@ -86,9 +89,6 @@ var EventsView = Backbone.View.extend({
 			var eventView = new EventView({model: event})
 			eventView.render();
 			self.$el.append( eventView.el )
-
-			// console.log(eventView)
-
 		})
 
 	}
@@ -107,7 +107,6 @@ var ModalView = Backbone.View.extend({
 	template: _.template( $('#template-event-modal').html() ),
 
 	initialize: function(){
-		console.log('new modal view initialized')
 		this.render()
 	},
 
@@ -120,30 +119,10 @@ var ModalView = Backbone.View.extend({
 })
 
 
-// SUBSCRIPTION VIEW-----------------------
-
-// var SubscriptionView = Backbone.View.extend({
-
-// 	initilize: function(){
-// 		console.log("sub view initilized")
-
-// 	},
-// 	events: {
-// 		"click button.subscribe": "subscribe"
-
-// 	},
-
-// 	subscribe: function(){
-// 		console.log("button pushed")
-
-// 	}
-// })
-
-
 // Subscription ------------------------
 
 $("button#subscribeUser").on("click", function(){
-	console.log("butotn clicked")
+
 	var name = $("input.name").val();
 	var email = $("input.email").val();
 
@@ -158,12 +137,13 @@ $("button#subscribeUser").on("click", function(){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
 		};
 
+		$("input.name").val("");
+		$("input.email").val("");
+		$("input.art").prop("checked", false);
+		$("input.music").prop("checked", false);
+		$("input.theater").prop("checked", false);
 	})
-	$("input.name").val("");
-	$("input.email").val("");
-	$("input.art").prop("checked", false);
-	$("input.music").prop("checked", false);
-	$("input.theater").prop("checked", false);
+
 
 })
 
