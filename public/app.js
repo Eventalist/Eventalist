@@ -69,7 +69,7 @@ var EventView = Backbone.View.extend({
 
 
 
-// ALL EVENTS LIST VIEW-------------------------
+//ALL EVENTS LIST VIEW-------------------------
 
 var EventsView = Backbone.View.extend({
 
@@ -99,7 +99,6 @@ var EventsView = Backbone.View.extend({
 var allEventsList = new EventsView({collection: eventsCollection, el: $('ul.events')})
 
 
-
 // EVENT MODAL VIEW-------------------------
 
 var ModalView = Backbone.View.extend({
@@ -127,9 +126,10 @@ $("button#subscribeUser").on("click", function(){
 	var email = $("input.email").val();
 
 
-	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){
-			if ($("input.art").prop("checked") == true){
-		$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
+	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
+
+		if ($("input.art").prop("checked") == true){
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
 		};
 		if ($("input.music").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
@@ -143,6 +143,7 @@ $("button#subscribeUser").on("click", function(){
 		$("input.art").prop("checked", false);
 		$("input.music").prop("checked", false);
 		$("input.theater").prop("checked", false);
+		
 		var sendEmail = function(){
 			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
 		}

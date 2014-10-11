@@ -7,10 +7,8 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
+require_relative './lib/connection-yoshie'
 
-require_relative './lib/connection-tim'
-
-# require_relative './lib/connection-yoshie'
 # require_relative './lib/connection-eric'
 
 require_relative './lib/methods'
