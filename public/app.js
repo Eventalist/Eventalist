@@ -116,7 +116,14 @@ var ModalView = Backbone.View.extend({
 })
 
 
+// SUBSCRIPTION VIEW-----------------------
 
+var SubscriptionView = Backbone.View.extend({
+	events: function(){
+
+	}
+
+})
 
 
 
