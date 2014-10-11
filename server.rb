@@ -90,7 +90,6 @@ get("/events") do
   Event.all.to_json
 end
 
-
 post("/subscriptions") do
  
   subscription = Subscription.create(subscription_params(params))
