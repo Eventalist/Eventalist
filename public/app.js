@@ -66,32 +66,66 @@ var EventView = Backbone.View.extend({
 
 // ALL EVENTS LIST VIEW-------------------------
 
-var EventsView = Backbone.View.extend({
+// var EventsView = Backbone.View.extend({
+
+// 	initialize: function(){
+// 		this.listenTo(this.collection, 'all', this.render)
+// 		this.collection.fetch()
+	
+// 	},
+
+// 	render: function(){
+
+// 		var self = this
+		
+// 		_.each(this.collection.models, function(event){
+
+// 			var eventView = new EventView({model: event})
+// 			eventView.render();
+// 			self.$el.append( eventView.el )
+
+// 		})
+
+// 	}
+
+// })
+
+
+// var allEventsList = new EventsView({collection: eventsCollection, el: $('ul.events')})
+
+var PaginatedEventView = Backbone.View.extend({
 
 	initialize: function(){
-		this.listenTo(this.collection, 'all', this.render)
+		console.log('new paginated view initialized')
+		this.listenTo(this.collection, 'all', this.paginate(10, 1))
 		this.collection.fetch()
-	
 	},
 
-	render: function(){
+	 paginate : function(perPage, page) {
+       page = page-1;
+       var collection = this;
+       collection = _(collection.rest(perPage*page));
+       collection = _(collection.first(perPage));    
+       return collection.map( function(model) { return model.toJSON() } ); 
+    },
 
-		var self = this
+	// render: function(){
 		
-		_.each(this.collection.models, function(event){
+	// 	for(var i = 0, i < 10; i++){
+			
 
-			var eventView = new EventView({model: event})
-			eventView.render();
-			self.$el.append( eventView.el )
 
-		})
+	// 		_.each(this.collection.models, function(event){
+	// 			var eventView = new EventView({model: event})
+	// 			eventView.render()
+	// 			self.$el.append( eventView.el )
 
-	}
+	// 		})
+	// 	}
+
+	// },
 
 })
-
-
-var allEventsList = new EventsView({collection: eventsCollection, el: $('ul.events')})
 
 
 
