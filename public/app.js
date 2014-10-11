@@ -114,14 +114,13 @@ var ModalView = Backbone.View.extend({
 	render: function(){
 		
 		this.$el.html( this.template(this.model.attributes) )
-		$('div.modal-content').html(this.$el)
+		$('div#modalEventView').html(this.$el)
 	},
 
 })
 
 
-// SUBSCRIPTION VIEW-----------------------
-
+// Subscription ------------------------
 
 $("button#subscribeUser").on("click", function(){
 	console.log("butotn clicked")
