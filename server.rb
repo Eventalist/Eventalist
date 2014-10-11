@@ -20,7 +20,6 @@ after do
   ActiveRecord::Base.connection.close
 end
 
-
 before do
   content_type :json
 end
@@ -42,6 +41,8 @@ def parseNYTimes(events, cat)
     title = checkEndpoint(event['event_name'])
     description = checkEndpoint(event['web_description'])
     date = checkEndpoint(event['date_time_description'])
+    venue = checkEndpoint(event['venue_name'])
+    venue_website = checkEndpoint(event['venue_website'])
     street = checkEndpoint(event['street_address'])
     city = checkEndpoint(event['city'])
     state = checkEndpoint(event['state'])
@@ -56,6 +57,8 @@ def parseNYTimes(events, cat)
     title: title,
     description: description,
     date: date,
+    venue: venue,
+    venue_website: venue_website,
     address: street + "\n" + city + "\n" + state + "\n" + postal_code,
     latitude: latitude,
     longitude: longitude,
@@ -67,16 +70,19 @@ end
 
 def newEvents()
   old_events = Event.all()
-  old_events.delete_all()
+  
+  if Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
+    old_events.delete_all()
 
-  pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-  parseNYTimes(pop, 'music')
+    pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(pop, 'music')
 
-  art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-  parseNYTimes(art, 'art')
+    art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(art, 'art')
 
-  theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-  parseNYTimes(theater, 'theater')
+    theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(theater, 'theater')
+  end
 end
 
 newEvents()
@@ -94,7 +100,6 @@ get("/events") do
   Event.all.to_json
 end
 
-
 post("/subscriptions") do
 
   subscription = Subscription.create(subscription_params(params))
@@ -103,6 +108,7 @@ post("/subscriptions") do
 
 end
 
-# def subscription_params(params)
-#   params.slice(*Subscription.column_names)
-# end
+
+def subscription_params(params)
+  params.slice(*Subscription.column_names)
+end

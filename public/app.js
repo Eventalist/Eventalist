@@ -66,15 +66,17 @@ var EventView = Backbone.View.extend({
 var EventsView = Backbone.View.extend({
 
 	initialize: function(){
-		var self = this
 
 		console.log('all events list initialized')
+		this.listenTo(this.collection, 'all', this.render)
 		this.collection.fetch()
-		this.collection.render()
+	
 	},
 
 	render: function(){
 
+		var self = this
+		
 		_.each(this.collection.models, function(event){
 
 			var eventView = new EventView({model: event})
@@ -106,8 +108,9 @@ var ModalView = Backbone.View.extend({
 	},
 
 	render: function(){
-		console.log(this.$el)
-
+		
+		this.$el.html( this.template(this.model.attributes) )
+		$('div.modal-content').html(this.$el)
 	},
 
 })
