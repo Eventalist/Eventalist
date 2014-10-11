@@ -138,6 +138,8 @@ $("button#subscribeUser").on("click", function(){
 		$("input.music").prop("checked", false);
 		$("input.theater").prop("checked", false);
 
+		$.get('http://127.0.0.1:9292/users/:' + user.id + '/subscriptions')
+
 	})
 
 
