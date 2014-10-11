@@ -1,13 +1,32 @@
 <html>
 <head>
 	<title>EventAList</title>
+	
+
 	<script src='jquery.js'></script>
+	
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+	<!-- THIS DIDN'T WORK -->
+<!-- 	<link href='bootstrap.min.js'></link>
+	<link href='bootstrap.min.css'></link> -->
+	
 	<script src='underscore.js'></script>
 	<script src='backbone.js'></script>
+
 
 </head>
 <body>
 	
+<div class='container'>
+
 	<header>
 		<h1>Eventalist</h1>
 	</header>
@@ -22,8 +41,8 @@
 		<ul class='events'>
 		</ul>
 
-	</main>
 
+	</main>
 
 
 
@@ -32,6 +51,31 @@
 		<h5><%= date %>- <%= title %></h5>
 	</script>
 
+
+<!-- MODAL  -->
+
+<!--  BUTTON -->
+
+<button class="editfamily btn btn-primary" data-toggle="modal" data-target="#viewEvent">View Event</button></td>
+
+<!-- MODAL EVENT VIEW  -->
+<div class="modal fade" id="viewEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">View Event</h4>
+			</div>
+			<div id="modalView" class="modal-body">
+				<script type="text/template" id="view-event-template">
+				</script>
+			</div>
+								
+		</div>
+	</div>
+</div> <!-- MODAL EVENT VIEW-->
+
+</div> <!--/CONTAINER-->
 
   <script type='text/javascript' src='app.js'></script>
   <script type='text/javascript' src='models_collection.js'></script>
