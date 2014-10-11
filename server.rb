@@ -8,8 +8,6 @@ require 'pry'
 require 'httparty'
 # require_relative './config/environments'
 
-require_relative './lib/connection-tim'
-# require_relative './lib/connection-eric'
 require_relative './lib/methods'
 
 after do
@@ -87,6 +85,7 @@ end
 
 newEvents()
 
+
 get("/") do
 
   content_type :html
@@ -102,6 +101,18 @@ end
 post("/subscriptions") do
   subscription = Subscription.create(subscription_params(params))
 
+  params = {
+    from: "Mailgun Sandbox <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
+    to: "#{subscription.user.name} <#{subscription.user.email}>",
+    subject: "You are now subscribed to Eventalist: #{subscription.category.name}",
+    text: "Hi #{subscription.user.name},\n\n
+    Thanks for subscribing to Eventalist!"
+  }
+
+  url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
+  auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
+
+  HTTParty.post(url, {body: params, basic_auth: auth})
   subscription.to_json
 
 end
@@ -112,7 +123,6 @@ post("/users") do
 
   user.to_json
 end
-
 
 def subscription_params(params)
   params.slice(*Subscription.column_names)
