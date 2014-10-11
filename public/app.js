@@ -145,19 +145,24 @@ $("button#subscribeUser").on("click", function(){
 	var name = $("input.name").val();	
 	var email = $("input.email").val();
 
-	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){
-		console.log(user)
-		// 	if ($("input.art").prop("checked") == true){
-		// $.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
-		// };
-		// if ($("input.music").prop("checked") == true){
-		// 	$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
-		// };
-		// if ($("input.theater").prop("checked") == true){
-		// 	$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
-		// };
+	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
+			if ($("input.art").prop("checked") == true){
+		$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
+		};
+		if ($("input.music").prop("checked") == true){
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
+		};
+		if ($("input.theater").prop("checked") == true){
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
+		};
 
 	})
+	$("input.name").val("");
+	$("input.email").val("");
+	$("input.art").prop("checked", false);
+	$("input.music").prop("checked", false);
+	$("input.theater").prop("checked", false);
+
 })
 
 
