@@ -128,22 +128,22 @@ get ("/users/:id/subscriptions") do
     categories.push(sub.category.name)
   end 
 
+
   email_info = {
   from: "Mailgun Sandbox <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
   to: "#{user.name} <#{user.email}>",
   subject: "Thanks for subscribing to Eventalist!",
   text: "Hi #{user.name},\n\n
   You are now subscribed to #{categories.join(" & ")}. Enjoy using Eventalist!"
-}
+  }
 
-url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
-auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
-  binding.pry
+  url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
+  auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
 
   HTTParty.post(url, {body: email_info, basic_auth: auth})
 
 
-
+  return ("email has been sent!").to_JSON
 
 end 
 
