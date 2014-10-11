@@ -20,6 +20,8 @@ before do
   content_type :json
 end
 
+binding.pry
+
 def checkEndpoint(endpoint)
   endpoint ? endpoint : ""
 end
@@ -87,6 +89,7 @@ end
 
 newEvents()
 
+
 get("/") do
 
   content_type :html
@@ -94,7 +97,6 @@ get("/") do
   File.read('./views/index.html')
 
 end
-
 
 get("/events") do
   Event.all.to_json
@@ -107,7 +109,6 @@ post("/subscriptions") do
   subscription.to_json
 
 end
-
 
 def subscription_params(params)
   params.slice(*Subscription.column_names)
