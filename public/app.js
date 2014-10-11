@@ -119,10 +119,20 @@ var ModalView = Backbone.View.extend({
 // SUBSCRIPTION VIEW-----------------------
 
 var SubscriptionView = Backbone.View.extend({
+	
+	initilize: function(){
+		console.log("sub view initilized")
+
+	},
 	events: function(){
+		"click button.subscribe": "subscribe"
+
+	},
+
+	subscribe: function(){
+		console.log(this.$("input.name").val())
 
 	}
-
 })
 
 
