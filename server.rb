@@ -7,9 +7,13 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
+
+require_relative './lib/connection-tim'
+# require_relative './lib/connection-eric'
+
 # require_relative './lib/connection-yoshie'
 # require_relative './lib/connection-tim'
-require_relative './lib/connection-eric'
+# require_relative './lib/connection-eric'
 require_relative './lib/methods'
 
 after do
@@ -37,7 +41,7 @@ def parseNYTimes(events, cat)
 
   events['results'].each do |event|
     title = checkEndpoint(event['event_name'])
-    description = checkEndpoint(event['web_description'])    
+    description = checkEndpoint(event['web_description'])
     date = checkEndpoint(event['date_time_description'])
     venue = checkEndpoint(event['venue_name'])
     venue_website = checkEndpoint(event['venue_website'])
@@ -53,7 +57,7 @@ def parseNYTimes(events, cat)
     Event.create({
     category_id: cat_id,
     title: title,
-    description: description,  
+    description: description,
     date: date,
     venue: venue,
     venue_website: venue_website,
@@ -79,7 +83,7 @@ end
 
 def newEvents()
   old_events = Event.all()
-  if old_events.length == 0 
+  if old_events.length == 0
     getEvents()
   elsif Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
     old_events.delete_all()
@@ -93,7 +97,7 @@ newEvents()
 get("/") do
 
   content_type :html
-  
+
   File.read('./views/index.html')
 
 end
@@ -103,13 +107,23 @@ get("/events") do
 end
 
 post("/subscriptions") do
- 
+
   subscription = Subscription.create(subscription_params(params))
 
   subscription.to_json
 
 end
 
+post("/users") do
+  user = User.create(user_params(params))
+
+  user.to_json
+end
+
 def subscription_params(params)
   params.slice(*Subscription.column_names)
+end
+
+def user_params(params)
+  params.slice(*User.column_names)
 end
