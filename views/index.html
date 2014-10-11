@@ -30,12 +30,9 @@
 	<header>
 		<h1>Eventalist</h1>
 	</header>
-	<button class="btn btn-primary" data-toggle="modal" data-target="#subscriptionView">Subscribe to Eventalist</button>
+	<button id="initialSubscribe"class="btn btn-primary" data-toggle="modal" data-target="#subscriptionView">Subscribe to Eventalist</button>
 	
-	<div class='subscription'>
-		<input name='name' class='name' placeholder='Name'></input>
-		<input name='email' class='email' placeholder='Email'></input>
-	</div>
+	
 
 	<main>
 		
@@ -99,21 +96,26 @@
       <div class="modal-body">
         <div class="form">
         	<div class="row">
-	        		<label class="col-sm-2">Name: </label> <input type="text" name="name" class="col-sm-5">
+	        		<label class="col-sm-2">Name: </label>
+	        		<input type="text" class="name col-sm-5">
 	        </div><!-- end row -->
 	        <div class="row">
-	        		<label class="col-sm-2">Email: </label><input type="text" name="email" class="col-sm-5">
+	        		<label class="col-sm-2">Email: </label>
+	        		<input type="text" class="email col-sm-5">
         	</div><!--end row -->
         	<div class="row">
-	        	<input type="checkbox" name="art" value="art" class="col-sm-1"><label class="col-sm-1">Art</label>
-	        	<input type="checkbox" name="music" value="music" class="col-sm-1"><label class="col-sm-1">Music</label>
-	        	<input type="checkbox" name="theater" value="theater" class="col-sm-1"><label class="col-sm-1">Theater</label>
+	        	<input type="checkbox" class="art col-sm-1">
+	        	<label class="col-sm-1">Art</label>
+	        	<input type="checkbox" class="music col-sm-1">
+	        	<label class="col-sm-1">Music</label>
+	        	<input type="checkbox" class="theater col-sm-1">
+	        	<label class="col-sm-1">Theater</label>
         	</div> <!-- end row-->
     		</div> <!-- end form -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="subscribe btn btn-primary" data-dismiss="modal">Subscribe</button>
+        <button id="subscribeUser"type="button" class="btn btn-primary" >Subscribe</button>
       </div>
     </div>
   </div>

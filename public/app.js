@@ -13,7 +13,11 @@ var EventModel = Backbone.Model.extend({
 		address: 'NYC',
 		price: '$0',
 		link: 'http://www.gooogle.com',
-		description: 'party party'
+		description: 'party party', 
+		venue: "",
+		venure_website: "",
+		latitude: "440.7127",
+		longitude: "74.0059",
 	}	
 
 });
@@ -118,23 +122,43 @@ var ModalView = Backbone.View.extend({
 
 // SUBSCRIPTION VIEW-----------------------
 
-var SubscriptionView = Backbone.View.extend({
+// var SubscriptionView = Backbone.View.extend({
 	
-	initilize: function(){
-		console.log("sub view initilized")
+// 	initilize: function(){
+// 		console.log("sub view initilized")
 
-	},
-	events: function(){
-		"click button.subscribe": "subscribe"
+// 	},
+// 	events: {
+// 		"click button.subscribe": "subscribe"
 
-	},
+// 	},
 
-	subscribe: function(){
-		console.log(this.$("input.name").val())
+// 	subscribe: function(){
+// 		console.log("button pushed")
 
-	}
+// 	}
+// })
+
+
+$("button#subscribeUser").on("click", function(){
+	console.log("butotn clicked")
+	var name = $("input.name").val();	
+	var email = $("input.email").val();
+
+	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){
+		console.log(user)
+		// 	if ($("input.art").prop("checked") == true){
+		// $.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
+		// };
+		// if ($("input.music").prop("checked") == true){
+		// 	$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
+		// };
+		// if ($("input.theater").prop("checked") == true){
+		// 	$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
+		// };
+
+	})
 })
-
 
 
 

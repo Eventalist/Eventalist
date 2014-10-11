@@ -7,7 +7,6 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
-
 # require_relative './lib/connection-tim'
 require_relative './lib/connection-tess'
 require_relative './lib/methods'
@@ -101,7 +100,6 @@ get("/events") do
 end
 
 post("/subscriptions") do
- 
   subscription = Subscription.create(subscription_params(params))
 
   subscription.to_json
