@@ -81,7 +81,7 @@ end
 
 def newEvents()
   old_events = Event.all()
-  if old_events.length == 0 
+  if old_events.length == 0
     getEvents()
   elsif Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
     old_events.delete_all()
@@ -99,7 +99,6 @@ get("/") do
 
 end
 
-
 get("/events") do
   Event.all.to_json
 end
@@ -112,7 +111,17 @@ post("/subscriptions") do
 
 end
 
+post("/users") do
+  user = User.create(user_params(params))
+
+  user.to_json
+end
+
 
 def subscription_params(params)
   params.slice(*Subscription.column_names)
+end
+
+def user_params(params)
+  params.slice(*User.column_names)
 end
