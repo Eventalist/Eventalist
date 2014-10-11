@@ -32,8 +32,8 @@
 	</header>
 
 	<div class='subscription'>
-		<input name='name' class='name'></input>
-		<input name='email' class='email'></input>
+		<input name='name' class='name' placeholder='Name'></input>
+		<input name='email' class='email' placeholder='Email'></input>
 	</div>
 
 	<main>
@@ -48,7 +48,7 @@
 
 <!-- TEMPLATE FOR EACH EVENT -->
 	<script id='template-event-list' type='text/template'>
-		<h5><%= date %>- <%= title %></h5>
+		<h5><%= title %></h5>
 		<button class='moreInfo btn btn-primary' data-toggle='modal' data-target='#viewEvent'>More info</button>
 	</script>
 
@@ -62,21 +62,22 @@
 <!-- MODAL EVENT VIEW  -->
 <div class="modal fade" id="viewEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content" id='modalView'>
+			
+		<script type="text/template" id="template-event-modal">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">View Event</h4>
+				<h4 class="modal-title" id="myModalLabel"><%= title %></h4>
 			</div>
 			
-			<div id="modalView" class="modal-body">
-				<script type="text/template" id="template-event-modal">
+			<div class="modal-body">
 						
-					<h5><%= title %></h5> <h5>, <%= category_id %></h5>
+					<h5><%= category_id %></h5>
 					<h5><%= date %></h5>
 					<p><%= description %></p>
 					<p><%= price %></p>
 					<p><%= address %></p>
-					<p>%= link %></p>
+					<p><%= link %></p>
 			
 				</script>
 			
