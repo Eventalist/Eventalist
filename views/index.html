@@ -57,7 +57,7 @@
 
 <!--  BUTTON -->
 
-<button class="editfamily btn btn-primary" data-toggle="modal" data-target="#viewEvent">View Event</button></td>
+<button class="moreInfo btn btn-primary" data-toggle="modal" data-target="#viewEvent">View Event</button></td>
 
 <!-- MODAL EVENT VIEW  -->
 <div class="modal fade" id="viewEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -67,12 +67,19 @@
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 				<h4 class="modal-title" id="myModalLabel">View Event</h4>
 			</div>
+			
 			<div id="modalView" class="modal-body">
-				<script type="text/template" id="view-event-template">
-					
-
-
+				<script type="text/template" id="template-event-modal">
+						
+					<h5><%= title %></h5> <h5>, <%= category_id %></h5>
+					<h5><%= date %></h5>
+					<p><%= description %></p>
+					<p><%= price %></p>
+					<p><%= address %></p>
+					<p>%= link %></p>
+			
 				</script>
+			
 			</div>
 								
 		</div>
