@@ -1,9 +1,9 @@
 // EVENT MODEL----------------------------
 
 var EventModel = Backbone.Model.extend({
-	
+
 	initialize: function(){
-		console.log('event model initialized')
+		// console.log('event model initialized')
 	},
 
 	defaults: {
@@ -13,12 +13,12 @@ var EventModel = Backbone.Model.extend({
 		address: 'NYC',
 		price: '$0',
 		link: 'http://www.gooogle.com',
-		description: 'party party', 
+		description: 'party party',
 		venue: "",
 		venure_website: "",
 		latitude: "440.7127",
 		longitude: "74.0059",
-	}	
+	}
 
 });
 
@@ -37,7 +37,7 @@ var eventsCollection = new EventCollection()
 // EVENT LIST VIEW-------------------------
 
 var EventView = Backbone.View.extend({
-	
+
 	tag: 'li',
 
 	template: _.template( $('#template-event-list').html() ),
@@ -48,12 +48,12 @@ var EventView = Backbone.View.extend({
 
 	modalView: function(){
 
-		var eventModalView = new ModalView({ model: this.model }) 
+		var eventModalView = new ModalView({ model: this.model })
 
 	},
 
 	initialize: function(){
-		console.log('new event view initialized')
+		// console.log('new event view initialized')
 		this.render()
 	},
 
@@ -71,23 +71,23 @@ var EventsView = Backbone.View.extend({
 
 	initialize: function(){
 
-		console.log('all events list initialized')
+		// console.log('all events list initialized')
 		this.listenTo(this.collection, 'all', this.render)
 		this.collection.fetch()
-	
+
 	},
 
 	render: function(){
 
 		var self = this
-		
+
 		_.each(this.collection.models, function(event){
 
 			var eventView = new EventView({model: event})
 			eventView.render();
 			self.$el.append( eventView.el )
 
-			console.log(eventView)
+			// console.log(eventView)
 
 		})
 
@@ -112,7 +112,7 @@ var ModalView = Backbone.View.extend({
 	},
 
 	render: function(){
-		
+
 		this.$el.html( this.template(this.model.attributes) )
 		$('div.modal-content').html(this.$el)
 	},
@@ -123,7 +123,7 @@ var ModalView = Backbone.View.extend({
 // SUBSCRIPTION VIEW-----------------------
 
 // var SubscriptionView = Backbone.View.extend({
-	
+
 // 	initilize: function(){
 // 		console.log("sub view initilized")
 
@@ -142,10 +142,10 @@ var ModalView = Backbone.View.extend({
 
 $("button#subscribeUser").on("click", function(){
 	console.log("butotn clicked")
-	var name = $("input.name").val();	
+	var name = $("input.name").val();
 	var email = $("input.email").val();
 
-	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
+	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){
 			if ($("input.art").prop("checked") == true){
 		$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
 		};
