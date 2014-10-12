@@ -10,9 +10,9 @@ require "nokogiri"
 require "open-uri"
 # require_relative './config/environments'
 
-# require_relative './lib/connection-tess'
+require_relative './lib/connection-tess'
 # require_relative './lib/connection-eric'
-require_relative './lib/connection-yoshie'
+# require_relative './lib/connection-yoshie'
 require_relative './lib/methods'
 
 after do
@@ -90,7 +90,7 @@ def scrapeNycFree()
   end
 end 
 
-def scrapeNycNightlife
+def scrapeNycNightlife()
   html = HTTParty.get("http://clubzone.com/new-york/events/")
   parsed = Nokogiri::HTML(html)
 
@@ -169,6 +169,7 @@ def getEvents()
     theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
     parseNYTimes(theater, 'theater')
     scrapeNycFree()
+    scrapeNycNightlife()
 end
 
 def newEvents()
@@ -183,7 +184,7 @@ def newEvents()
 end
 
 newEvents()
-scrapeNycNightlife()
+
 
 
 
