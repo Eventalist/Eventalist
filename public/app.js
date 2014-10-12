@@ -68,7 +68,7 @@ var EventView = Backbone.View.extend({
 
 //ALL EVENTS LIST VIEW-------------------------
 
-var EventsView = Backbone.View.extend({
+var EventsListView = Backbone.View.extend({
 
 	initialize: function(){
 
@@ -80,20 +80,27 @@ var EventsView = Backbone.View.extend({
 	render: function(){
 
 		var self = this
+		this.$el.empty()
 
-		_.each(this.collection.models, function(event){
-
-			var eventView = new EventView({model: event})
-			eventView.render();
-			self.$el.append( eventView.el )
+		_.each(this.collection.models, function(eachEvent){
+		
+			if(eachEvent.attributes.category_id == self.attributes.category_id){
+				
+				var eventView = new EventView({model: eachEvent})
+				eventView.render();
+				self.$el.append( eventView.el )
+			}
 		})
-
 	}
 
 })
 
 
-var allEventsList = new EventsView({collection: eventsCollection, el: $('ul.events')})
+var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.music'), attributes: {category_id: 1}})
+
+var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.art'), attributes: {category_id: 2}})
+
+var theaterEventsView = new EventsListView({collection: eventsCollection, el: $('ul.theater'), attributes: {category_id: 3}})
 
 
 // EVENT MODAL VIEW-------------------------
