@@ -12,6 +12,9 @@ require_relative './lib/connection-tim'
 
 # require_relative './lib/connection-eric'
 
+# require_relative './lib/connection-eric'
+# require_relative './lib/connection-yoshie'
+
 require_relative './lib/methods'
 
 after do
@@ -179,7 +182,6 @@ get ("/users/:id/subscriptions") do
   subscriptions.each do |sub|
     categories.push(sub.category.name)
   end
-
 
   email_info = {
   from: "Eventalist <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
