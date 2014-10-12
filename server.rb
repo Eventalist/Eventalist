@@ -7,7 +7,6 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
-<<<<<<< HEAD
 
 require_relative './lib/connection-tim'
 
