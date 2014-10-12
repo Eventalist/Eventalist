@@ -10,9 +10,16 @@ require "nokogiri"
 require "open-uri"
 # require_relative './config/environments'
 
-# require_relative './lib/connection-tess'
+
+require_relative './lib/connection-tim'
+
 # require_relative './lib/connection-eric'
-require_relative './lib/connection-yoshie'
+
+# require_relative './lib/connection-eric'
+# require_relative './lib/connection-yoshie'
+
+# require_relative './lib/connection-tess'
+
 require_relative './lib/methods'
 
 after do
@@ -72,10 +79,10 @@ def scrapeNycFree()
 
   info = page.css("div.colABoxRight p")
   events = []
-  
+
   info.each do |item|
     events<<item.text().split("\n\t")
-  end 
+  end
 
   i=1
   while i<events.length
@@ -88,7 +95,7 @@ def scrapeNycFree()
     })
     i+=1
   end
-end 
+end
 
 def scrapeNycNightlife
   html = HTTParty.get("http://clubzone.com/new-york/events/")
@@ -102,25 +109,25 @@ def scrapeNycNightlife
 
   headline.each do |item|
     Event.create({
-      title: item[:title], 
+      title: item[:title],
       address: item[:address],
       link: item[:link],
       description: item[:description],
       date: item[:date],
       category_id: 5
     })
-  end 
-end 
+  end
+end
 
 
 def sendEvents()
 
   users = User.all
-  
+
   users.each do |user|
 
     subscriptions = user.subscriptions
-    
+
     categories = {}
     email_text = ""
     subscriptions.each do |sub|
@@ -128,8 +135,8 @@ def sendEvents()
       events = sub.category.events
       events.each do |event|
         categories[sub.category.name.to_sym].push({title: event.title, description: event.description, price: event.price, link: event.link, address: event.address, venue: event.venue, date: event.date})
-      end 
-      
+      end
+
       categories.each do |category, events|
         email_text += category.to_s + ":\n"
         events.each do |attributes|
@@ -140,9 +147,9 @@ def sendEvents()
           email_text += attributes[:address] + "\n"
           email_text += attributes[:price] + "\n"
           email_text += attributes[:link] + "\n\n"
-        end 
-      end 
-    end 
+        end
+      end
+    end
 
 
     email_info = {
@@ -158,44 +165,23 @@ def sendEvents()
     auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
     HTTParty.post(url, {body: email_info, basic_auth: auth})
   end
-end 
-def getEvents()
-    pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(pop, 'music')
 
-    art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(art, 'art')
-
-    theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(theater, 'theater')
-    scrapeNycFree()
 end
 
-def newEvents()
-  old_events = Event.all()
-  if old_events.length == 0
-    getEvents()
-  elsif Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
-    old_events.delete_all()
-    getEvents()
-    sendEvents()
-  end
-end
-
-newEvents()
-scrapeNycNightlife()
-
-
-
 def getEvents()
-    pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(pop, 'music')
+  pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+  parseNYTimes(pop, 'music')
 
-    art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(art, 'art')
+  art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+  parseNYTimes(art, 'art')
 
-    theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(theater, 'theater')
+  theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+  parseNYTimes(theater, 'theater')
+
+  scrapeNycNightlife()
+
+  scrapeNycFree()
+
 end
 
 def newEvents()
