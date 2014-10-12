@@ -7,10 +7,9 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
-require_relative './lib/connection-yoshie'
-
-# require_relative './lib/connection-eric'
-
+# require_relative './lib/connection-tess'
+require_relative './lib/connection-eric'
+# require_relative './lib/connection-yoshie'
 require_relative './lib/methods'
 
 after do
@@ -65,30 +64,6 @@ def parseNYTimes(events, cat)
   end
 end
 
-def getEvents()
-    pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(pop, 'music')
-
-    art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(art, 'art')
-
-    theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(theater, 'theater')
-end
-
-def newEvents()
-  old_events = Event.all()
-  if old_events.length == 0
-    getEvents()
-  elsif Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
-    old_events.delete_all()
-    getEvents()
-    sendEvents()
-  end
-end
-
-newEvents()
-
 def sendEvents()
 
   users = User.all
@@ -136,6 +111,29 @@ def sendEvents()
   end
 end 
 
+def getEvents()
+    pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(pop, 'music')
+
+    art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(art, 'art')
+
+    theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(theater, 'theater')
+end
+
+def newEvents()
+  old_events = Event.all()
+  if old_events.length == 0
+    getEvents()
+  elsif Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
+    old_events.delete_all()
+    getEvents()
+    sendEvents()
+  end
+end
+
+newEvents()
 
 get("/") do
 
