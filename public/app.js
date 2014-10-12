@@ -38,12 +38,16 @@ var eventsCollection = new EventCollection()
 
 var EventView = Backbone.View.extend({
 
-	tag: 'li',
+	tag: 'div',
+
+	attributes: {
+		class: "listItem col-md-12"
+	},
 
 	template: _.template( $('#template-event-list').html() ),
 
 	events: {
-		"click span.moreInfo": "modalView"
+		"click button.moreInfo": "modalView"
 	},
 
 	modalView: function(){
@@ -89,7 +93,13 @@ var EventsListView = Backbone.View.extend({
 				var eventView = new EventView({model: eachEvent})
 				eventView.render();
 				self.$el.append( eventView.el )
+			
+			}else if (self.attributes.category_id == 0) {
+				var eventView = new EventView({model: eachEvent})
+				eventView.render();
+				self.$el.append( eventView.el );
 			}
+
 		})
 	}
 
@@ -162,7 +172,8 @@ $('ul.nav').on('click', function(event){
 
 var AppRouter = Backbone.Router.extend({
 routes: {
-	"": "art",
+	"": "index",
+	"art": "art",
 	"theater": "theater",
 	"music": "music"
 
@@ -170,7 +181,14 @@ routes: {
 })
 
 
+
 var router = new AppRouter();
+
+router.on("route:index", function(){
+	var allEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 0}})
+
+})
+
 router.on("route:art", function(){
 	
 	var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 2}})
