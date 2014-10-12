@@ -168,17 +168,20 @@ def sendEvents()
 
 end
 
-scrapeNycNightlife()
-
 def getEvents()
-    pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(pop, 'music')
+  pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+  parseNYTimes(pop, 'music')
 
-    art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(art, 'art')
+  art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+  parseNYTimes(art, 'art')
 
-    theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
-    parseNYTimes(theater, 'theater')
+  theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+  parseNYTimes(theater, 'theater')
+
+  scrapeNycNightlife()
+
+  scrapeNycFree()
+
 end
 
 def newEvents()
