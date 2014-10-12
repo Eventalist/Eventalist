@@ -63,10 +63,7 @@ def parseNYTimes(events, cat)
   })
   end
 end
-<<<<<<< HEAD
-=======
 
->>>>>>> 76ebd7ee129bd22740d2a9472dea851b6d3d7086
 def sendEvents()
 
   users = User.all
