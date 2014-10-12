@@ -87,13 +87,13 @@ var EventsListView = Backbone.View.extend({
 		this.$el.empty()
 
 		_.each(this.collection.models, function(eachEvent){
-		
+
 			if(eachEvent.attributes.category_id == self.attributes.category_id){
-				
+
 				var eventView = new EventView({model: eachEvent})
 				eventView.render();
 				self.$el.append( eventView.el )
-			
+
 			}else if (self.attributes.category_id == 0) {
 				var eventView = new EventView({model: eachEvent})
 				eventView.render();
@@ -140,7 +140,7 @@ $("button#subscribeUser").on("click", function(){
 	var email = $("input.email").val();
 
 
-	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
+	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){
 
 		if ($("input.art").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
@@ -157,7 +157,7 @@ $("button#subscribeUser").on("click", function(){
 		$("input.art").prop("checked", false);
 		$("input.music").prop("checked", false);
 		$("input.theater").prop("checked", false);
-		
+
 		var sendEmail = function(){
 			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
 		}
@@ -175,9 +175,11 @@ routes: {
 	"": "index",
 	"art": "art",
 	"theater": "theater",
-	"music": "music"
+	"music": "music",
+	"free": "free",
+	"nightlife": "nightlife"
 
-	}, 
+	},
 })
 
 
@@ -190,7 +192,7 @@ router.on("route:index", function(){
 })
 
 router.on("route:art", function(){
-	
+
 	var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 2}})
 
 })
@@ -205,6 +207,18 @@ router.on("route:music", function(){
 
 	var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 1}})
 
+})
+
+router.on("route:free", function() {
+
+	var freeEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'),
+		attributes: {category_id: 4}})
+})
+
+router.on("route:nightlife", function() {
+
+	var nightlifeEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'),
+		attributes: {category_id: 5}})
 })
 
 Backbone.history.start()
