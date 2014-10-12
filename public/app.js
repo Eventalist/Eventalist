@@ -152,13 +152,13 @@ $("button#subscribeUser").on("click", function(){
 			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
 		}
 		setTimeout(sendEmail, 2000);
-		
 	})
-
-
 })
 
-
+$('ul.nav').on('click', function(event){
+	$('.active').toggleClass('active')
+	$(event.target).parent().toggleClass('active');
+})
 
 var AppRouter = Backbone.Router.extend({
 routes: {
