@@ -1,3 +1,7 @@
-h1 {
+h2 {
   text-align: center;
+}
+
+button#initialSubscribe{
+	margin-top:20px;
 }

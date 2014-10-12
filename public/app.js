@@ -3,10 +3,7 @@
 var EventModel = Backbone.Model.extend({
 
 	initialize: function(){
-
-
-
-
+		
 	},
 
 	defaults: {
