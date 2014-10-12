@@ -82,10 +82,58 @@ def newEvents()
   elsif Time.now.to_s.split(' ')[0].split('-')[2] > old_events.last.created_at.to_s.split(' ')[0].split('-')[2]
     old_events.delete_all()
     getEvents()
+    sendEvents()
   end
 end
 
 newEvents()
+
+def sendEvents()
+
+  users = User.all
+  
+  users.each do |user|
+
+    subscriptions = user.subscriptions
+    
+    categories = {}
+    email_text = ""
+    subscriptions.each do |sub|
+      categories[sub.category.name.to_sym] = []
+      events = sub.category.events
+      events.each do |event|
+        categories[sub.category.name.to_sym].push({title: event.title, description: event.description, price: event.price, link: event.link, address: event.address, venue: event.venue, date: event.date})
+      end 
+      
+      categories.each do |category, events|
+        email_text += category.to_s + ":\n"
+        events.each do |attributes|
+          email_text += attributes[:title] + "\n"
+          email_text += attributes[:date] + "\n"
+          email_text += attributes[:description] + "\n"
+          email_text += attributes[:venue] + "\n"
+          email_text += attributes[:address] + "\n"
+          email_text += attributes[:price] + "\n"
+          email_text += attributes[:link] + "\n\n"
+        end 
+      end 
+    end 
+
+
+    email_info = {
+    from: "Eventalist <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
+    to: "#{user.name} <#{user.email}>",
+    subject: "Today's Eventalist",
+    text: "Hi #{user.name},\n\n
+    Here are your events: \n\n
+    #{email_text}"
+    }
+
+    url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
+    auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
+    HTTParty.post(url, {body: email_info, basic_auth: auth})
+  end
+end 
 
 
 get("/") do
@@ -130,7 +178,7 @@ get ("/users/:id/subscriptions") do
 
 
   email_info = {
-  from: "Mailgun Sandbox <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
+  from: "Eventalist <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
   to: "#{user.name} <#{user.email}>",
   subject: "Thanks for subscribing to Eventalist!",
   text: "Hi #{user.name},\n\n
