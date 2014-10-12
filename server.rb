@@ -11,6 +11,7 @@ require_relative './lib/connection-tess'
 
 # require_relative './lib/connection-eric'
 
+
 require_relative './lib/methods'
 
 after do
@@ -135,9 +136,6 @@ def newEvents()
 end
 
 newEvents()
-
-
-
 
 get("/") do
 
