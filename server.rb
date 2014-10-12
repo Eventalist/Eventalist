@@ -7,6 +7,7 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
+
 require_relative './lib/connection-tim'
 
 # require_relative './lib/connection-eric'
@@ -123,6 +124,20 @@ def getEvents()
     parseNYTimes(theater, 'theater')
 end
 
+<<<<<<< HEAD
+=======
+def getEvents()
+    pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(pop, 'music')
+
+    art = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Art&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(art, 'art')
+
+    theater = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Theater&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
+    parseNYTimes(theater, 'theater')
+end
+
+>>>>>>> 76ebd7ee129bd22740d2a9472dea851b6d3d7086
 def newEvents()
   old_events = Event.all()
   if old_events.length == 0
