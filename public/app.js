@@ -3,7 +3,7 @@
 var EventModel = Backbone.Model.extend({
 
 	initialize: function(){
-		
+
 	},
 
 	defaults: {
@@ -43,7 +43,7 @@ var EventView = Backbone.View.extend({
 	template: _.template( $('#template-event-list').html() ),
 
 	events: {
-		"click button.moreInfo": "modalView"
+		"click span.moreInfo": "modalView"
 	},
 
 	modalView: function(){
