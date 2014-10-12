@@ -168,7 +168,6 @@ def sendEvents()
 
 end
 
-newEvents()
 scrapeNycNightlife()
 
 def getEvents()
