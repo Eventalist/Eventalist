@@ -96,11 +96,11 @@ var EventsListView = Backbone.View.extend({
 })
 
 
-var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.music'), attributes: {category_id: 1}})
+// var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.music'), attributes: {category_id: 1}})
 
-var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.art'), attributes: {category_id: 2}})
+// var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.art'), attributes: {category_id: 2}})
 
-var theaterEventsView = new EventsListView({collection: eventsCollection, el: $('ul.theater'), attributes: {category_id: 3}})
+// var theaterEventsView = new EventsListView({collection: eventsCollection, el: $('ul.theater'), attributes: {category_id: 3}})
 
 
 // EVENT MODAL VIEW-------------------------
@@ -152,15 +152,44 @@ $("button#subscribeUser").on("click", function(){
 			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
 		}
 		setTimeout(sendEmail, 2000);
-		
 	})
+})
 
+$('ul.nav').on('click', function(event){
+	$('.active').toggleClass('active')
+	$(event.target).parent().toggleClass('active');
+})
 
+var AppRouter = Backbone.Router.extend({
+routes: {
+	"": "art",
+	"theater": "theater",
+	"music": "music"
+
+	}, 
 })
 
 
+var router = new AppRouter();
+router.on("route:art", function(){
+	
+	var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 2}})
 
+})
 
+router.on("route:theater", function(){
+
+	var theaterEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 3}})
+
+})
+
+router.on("route:music", function(){
+
+	var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 1}})
+
+})
+
+Backbone.history.start()
 
 
 
