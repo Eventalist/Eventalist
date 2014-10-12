@@ -1,4 +1,4 @@
-require_relative('./lib/connection-eric')
+require_relative('./lib/connection-yoshie')
 require_relative('./lib/methods')
 
 Category.create(name: 'music')

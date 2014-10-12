@@ -16,12 +16,15 @@
 
   <link rel="stylesheet" type="text/css" href="/styles.css">
 
+
 	<!-- THIS DIDN'T WORK -->
 <!-- 	<link href='bootstrap.min.js'></link>
 	<link href='bootstrap.min.css'></link> -->
 
 	<script src='underscore.js'></script>
 	<script src='backbone.js'></script>
+		
+	<script src='//cdnjs.cloudflare.com/ajax/libs/backbone.paginator/0.8/backbone.paginator.min.js'></script>
 
 
 </head>
@@ -29,20 +32,24 @@
 
 <div class='container'>
 
-	<header>
-		<h1>Eventalist</h1>
-	</header>
-	<button id="initialSubscribe"class="btn btn-primary" data-toggle="modal" data-target="#subscriptionView">Subscribe to Eventalist</button>
+	<div class='row'>
+		
+		<header class='col-md-10'>
+			<h2>Eventalist</h2>
+		</header>
+		
+		<button id="initialSubscribe" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#subscriptionView">Subscribe to Eventalist</button>
+	
+	</div>
 
+	<div class='row'>
+		<main class='col-md-8 col-md-offset-2'>
 
+			<ul class='events'>
+			</ul>
 
-	<main>
-
-		<ul class='events'>
-		</ul>
-
-
-	</main>
+		</main>
+	</div>
 
 
 
@@ -52,8 +59,6 @@
 		<button class='moreInfo btn btn-primary' data-toggle='modal' data-target='#viewEvent'>More info</button>
 	</script>
 
-
-<!-- MODAL  -->
 
 <!-- MODAL EVENT VIEW  -->
 <div class="modal fade" id="viewEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -68,13 +73,12 @@
 
 			<div class="modal-body">
 
-					<h5><%= category_id %></h5>
+					<h5><%= category_id == 1 ? 'Music' : category_id == 2 ? 'Art' : 'Theater' %></h5>
 					<h5><%= date %></h5>
 					<p><%= description %></p>
 					<p><%= price %></p>
 					<p><%= address %></p>
-					<p><%= link %></p>
-
+					<a href=<%= link%> >Event Link</a>
 				</script>
 
 			</div>
@@ -97,13 +101,13 @@
       <div class="modal-body">
         <div class="form">
         	<div class="row">
-	        		<label class="col-sm-2">Name: </label>
-	        		<input type="text" class="name col-sm-5">
+	        		<label class='col-sm-2'>Name: </label>
+	        		<input type="text">
 	        </div><!-- end row -->
          <br>
          <div class="row">
 	        		<label class="col-sm-2">Email: </label>
-	        		<input type="text" class="email col-sm-5">
+	        		<input type="text" class="email">
         	</div><!--end row -->
           <br>
         	<div class="row">
