@@ -7,6 +7,7 @@ require 'sinatra/reloader'
 require 'pry'
 require 'httparty'
 # require_relative './config/environments'
+<<<<<<< HEAD
 
 require_relative './lib/connection-tim'
 
@@ -111,6 +112,9 @@ def sendEvents()
     auth = {:username=>"api", :password=>"key-fc526e192c5951bc94c2e2a8531adaf9"}
     HTTParty.post(url, {body: email_info, basic_auth: auth})
   end
+
+end
+
 end
 
 def getEvents()
