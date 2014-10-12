@@ -33,7 +33,7 @@
 <div class='container'>
 		<div class='row'>
 		
-		<header class='col-md-10'>
+		<header class='col-md-12'>
 			<h2>Eventalist</h2>
 		</header>
 		
@@ -52,13 +52,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Eventalist</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="#">Art</a></li>
+      	<li class="active"><a href="#">All</a></li>
+        <li><a href="#art">Art</a></li>
         <li><a href="#music">Music</a></li>
         <li><a href="#theater">Theater</a></li>
       </ul>
@@ -89,7 +89,7 @@
 
 
 	<div class='row'>
-		<main class='col-md-8'>
+		<main class='col-md-12'>
 			
 			<ul class='events'>
 			</ul>
@@ -101,9 +101,16 @@
 
 <!-- TEMPLATE FOR EACH EVENT -->
 	<script id='template-event-list' type='text/template'>
-		<h5><%= title %></h5>
-		<!--<button class='moreInfo btn btn-info' data-toggle='modal' data-target='#viewEvent'>More info</button>-->
-		<span class="moreInfo glyphicon glyphicon-info-sign" data-toggle='modal' data-target='#viewEvent'></span>
+	<div class='row'>
+		<h5 class="col-md-8"><%= title %></h5>
+		<button class='moreInfo btn btn-info pull-right' data-toggle='modal' data-target='#viewEvent'>More info</button>
+	</div>
+
+	<div class='row'>
+		<a class='col-md-4' href="http://www.<%= venue_website %>" target="_blank"><%= venue %></a><br>
+			
+	</div>
+		
 	</script>
 
 
@@ -120,10 +127,11 @@
 
 			<div class="modal-body">
 
-					<h5><%= category_id == 1 ? 'Music' : category_id == 2 ? 'Art' : 'Theater' %></h5>
+					<p><em><%= category_id == 1 ? 'Music' : category_id == 2 ? 'Art' : 'Theater' %></em><p>
 					<h5><%= date %></h5>
 					<p><%= description %></p>
 					<p><%= price %></p>
+					<a href="http://www.<%= venue_website %>" target="_blank"><%= venue %></a>
 					<p><%= address %></p>
 					<a href=<%= link%> target="_blank" >Event Link</a>
 				</script>

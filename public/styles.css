@@ -6,3 +6,19 @@ button#initialSubscribe{
 	margin-top:8px;
 }
 
+.listItem{
+	height: 100px;
+	border: solid 1px lightgrey;
+	border-radius: 5px;
+	margin-bottom: 5px;
+	padding-bottom: 0;
+}
+
+/*.listItem a {
+	margin-top: 8px;
+}*/
+
+ul {
+	padding-left: 0;
+}
+
