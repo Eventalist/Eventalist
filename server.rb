@@ -114,7 +114,7 @@ def sendEvents()
 
 end
 
-end
+
 
 def getEvents()
     pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
