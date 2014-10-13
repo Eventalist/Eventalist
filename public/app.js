@@ -76,6 +76,7 @@ var EventsListView = Backbone.View.extend({
 
 	initialize: function(){
 
+		var searchInput = $('input.search')
 		this.listenTo(this.collection, 'all', this.render)
 		this.collection.fetch()
 
@@ -87,13 +88,13 @@ var EventsListView = Backbone.View.extend({
 		this.$el.empty()
 
 		_.each(this.collection.models, function(eachEvent){
-
+		
 			if(eachEvent.attributes.category_id == self.attributes.category_id){
-
+				
 				var eventView = new EventView({model: eachEvent})
 				eventView.render();
 				self.$el.append( eventView.el )
-
+			
 			}else if (self.attributes.category_id == 0) {
 				var eventView = new EventView({model: eachEvent})
 				eventView.render();
@@ -105,12 +106,36 @@ var EventsListView = Backbone.View.extend({
 
 })
 
+//SEARCH EVENTS VIEW FILTERING BY EVENT TITLE------------
+var SearchEventsView = Backbone.View.extend({
 
-// var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.music'), attributes: {category_id: 1}})
+	initialize: function(){
+		console.log('new search view initialized'),
+		this.listenTo(this.collection, 'all', this.render)
+		this.collection.fetch()
+	},
 
-// var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.art'), attributes: {category_id: 2}})
+	render: function(){
 
-// var theaterEventsView = new EventsListView({collection: eventsCollection, el: $('ul.theater'), attributes: {category_id: 3}})
+		var self= this
+		this.$el.empty()
+
+		var results = _.filter(self.collection.models, function(event){
+
+			return event.attributes.title.toLowerCase().indexOf(self.attributes.search.toLowerCase()) != -1
+
+		})
+
+		_.each(results, function(eachEvent){
+			var eventView = new EventView({model: eachEvent})
+				eventView.render();
+				self.$el.append( eventView.el );
+		})
+
+	}
+
+})
+
 
 
 // EVENT MODAL VIEW-------------------------
@@ -140,7 +165,7 @@ $("button#subscribeUser").on("click", function(){
 	var email = $("input.email").val();
 
 
-	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){
+	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
 
 		if ($("input.art").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
@@ -157,7 +182,7 @@ $("button#subscribeUser").on("click", function(){
 		$("input.art").prop("checked", false);
 		$("input.music").prop("checked", false);
 		$("input.theater").prop("checked", false);
-
+		
 		var sendEmail = function(){
 			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
 		}
@@ -165,32 +190,36 @@ $("button#subscribeUser").on("click", function(){
 	})
 })
 
+//TOGGLE ACTIVE CLASS ON CATEGORY CLICK
+
 $('ul.nav').on('click', function(event){
 	$('.active').toggleClass('active')
 	$(event.target).parent().toggleClass('active');
 })
 
-// $('.search').on('keyup', function(){
-// 	$('.events').html('<ul class="result">')
-// 	var events = eventsCollection.models;
-// 	var results = _.filter(events, function(event){
-// 		return event.attributes.title.toLowerCase().indexOf($('.search').val().toLowerCase()) != -1
-// 	});
-// 	results.forEach(function(result){
-// 		$('ul.result').append('<li>' + result.attributes.title + '</li>')
-// 	})
-// })
 
+//INPUT FIELD LISTENING TO KEYDOWN ENTER & BACKSPACE
+$('input.search').on('keydown', function(e){
+	if (e.keyCode == 13){
+		$('i.glyphicon').trigger('click')
+	} else if (e.keyCode == 8 && $('input.search').val() == ""){
+		$('#home').trigger('click')
+		$('#home').parent().parent().toggleClass('active')
+	}
+})
+
+
+
+//OUR APP ROUTER
 var AppRouter = Backbone.Router.extend({
 routes: {
 	"": "index",
 	"art": "art",
 	"theater": "theater",
 	"music": "music",
-	"free": "free",
-	"nightlife": "nightlife"
+	"search": "search"
 
-	},
+	}, 
 })
 
 
@@ -203,7 +232,7 @@ router.on("route:index", function(){
 })
 
 router.on("route:art", function(){
-
+	
 	var artEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 2}})
 
 })
@@ -220,16 +249,13 @@ router.on("route:music", function(){
 
 })
 
-router.on("route:free", function() {
+router.on("route:search", function(){
 
-	var freeEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'),
-		attributes: {category_id: 4}})
-})
+	var searchInput = $('input.search').val()
 
-router.on("route:nightlife", function() {
+	var searchEventView = new SearchEventsView({collection: eventsCollection, el: $('ul.events'), attributes: {search: searchInput}})
 
-	var nightlifeEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'),
-		attributes: {category_id: 5}})
+
 })
 
 Backbone.history.start()
