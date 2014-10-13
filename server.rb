@@ -10,9 +10,9 @@ require "nokogiri"
 require "open-uri"
 # require_relative './config/environments'
 
-# require_relative './lib/connection-tim'
+require_relative './lib/connection-tess'
 # require_relative './lib/connection-eric'
-require_relative './lib/connection-yoshie'
+# require_relative './lib/connection-yoshie'
 
 
 require_relative './lib/methods'
@@ -153,7 +153,9 @@ def sendEvents()
     subject: "Today's Eventalist",
     text: "Hi #{user.name},\n\n
     Here are your events: \n\n
-    #{email_text}"
+    #{email_text} \n\n
+
+    Click here to https://127.0.0.1:9292/subscriptions/#{user.id}"
     }
 
     url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
@@ -207,10 +209,17 @@ post("/subscriptions") do
 
   subscription = Subscription.create(subscription_params(params))
 
-
   subscription.to_json
 
 end
+
+get("/subscriptions/:id") do 
+  subscriptions = Subscription.where(user_id: params[:id])
+  subscriptions.each do |sub|
+    sub.destroy()
+  end 
+  ("Your have unsubscribed from Eventalist").to_json
+end 
 
 post("/users") do
 
@@ -236,7 +245,8 @@ get ("/users/:id/subscriptions") do
   to: "#{user.name} <#{user.email}>",
   subject: "Thanks for subscribing to Eventalist!",
   text: "Hi #{user.name},\n\n
-  You are now subscribed to #{categories.join(" & ")}.\n\n Enjoy using Eventalist!"
+  You are now subscribed to #{categories.join(" & ")}.\n\n Enjoy using Eventalist! \n\n
+  Click here to https://127.0.0.1:9292/subscriptions/#{user.id}"
   }
 
   url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
