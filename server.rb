@@ -9,9 +9,13 @@ require 'httparty'
 require "nokogiri"
 require "open-uri"
 # require_relative './config/environments'
+
 # require_relative './lib/connection-tim'
 # require_relative './lib/connection-eric'
 require_relative './lib/connection-yoshie'
+
+
+
 
 require_relative './lib/methods'
 
@@ -90,7 +94,7 @@ def scrapeNycFree()
   end
 end
 
-def scrapeNycNightlife
+def scrapeNycNightlife()
   html = HTTParty.get("http://clubzone.com/new-york/events/")
   parsed = Nokogiri::HTML(html)
 
@@ -151,7 +155,9 @@ def sendEvents()
     subject: "Today's Eventalist",
     text: "Hi #{user.name},\n\n
     Here are your events: \n\n
-    #{email_text}"
+    #{email_text} \n\n
+
+    Click here to http://127.0.0.1:9292/subscriptions/#{user.id}"
     }
 
     url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
@@ -159,8 +165,7 @@ def sendEvents()
     HTTParty.post(url, {body: email_info, basic_auth: auth})
   end
 
-end
-
+end 
 def getEvents()
   pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
   parseNYTimes(pop, 'music')
@@ -206,10 +211,27 @@ post("/subscriptions") do
 
   subscription = Subscription.create(subscription_params(params))
 
-
   subscription.to_json
 
 end
+
+get("/subscriptions/:id") do 
+  binding.pry
+  subscriptions = Subscription.where(user_id: params[:id])
+  subscriptions.each do |sub|
+    sub.destroy()
+  end 
+  ("You have unsubscribed from Eventalist").to_json
+end 
+
+
+delete("/subscriptions/:email") do
+
+  email = params['email']
+
+binding.pry
+end
+
 
 post("/users") do
 
@@ -235,7 +257,8 @@ get ("/users/:id/subscriptions") do
   to: "#{user.name} <#{user.email}>",
   subject: "Thanks for subscribing to Eventalist!",
   text: "Hi #{user.name},\n\n
-  You are now subscribed to #{categories.join(" & ")}.\n\n Enjoy using Eventalist!"
+  You are now subscribed to #{categories.join(" & ")}.\n\n Enjoy using Eventalist! \n\n
+  Click here to http://127.0.0.1:9292/subscriptions/#{user.id}"
   }
 
   url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
