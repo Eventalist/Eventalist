@@ -23,9 +23,7 @@
 
 	<script src='underscore.js'></script>
 	<script src='backbone.js'></script>
-
-	<script src='//cdnjs.cloudflare.com/ajax/libs/backbone.paginator/0.8/backbone.paginator.min.js'></script>
-
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
 </head>
 <body>
@@ -132,6 +130,7 @@
 					<a href="http://www.<%= venue_website %>" target="_blank"><%= venue %></a>
 					<p><%= address %></p>
 					<a href=<%= link%> target="_blank" >Event Link</a>
+          <div id="map-canvas" style="width: 25%; height: 25%"></div>
 				</script>
 
 			</div>
