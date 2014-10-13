@@ -31,14 +31,25 @@ button#initialSubscribe{
 }
 
 .listItem{
-	height: 100px;
-	border: solid 1px lightgrey;
+	height: 150px;
+	border: solid 2px lightgrey;
 	border-radius: 5px;
 	margin-bottom: 5px;
 	padding-bottom: 0;
 	background-color: #FFF;
+	margin: 0 auto;
 }
 
 ul {
 	padding-left: 0;
+	display: inline-block;
 }
+
+button.moreInfo{
+	position: absolute;
+	right:    0;
+	bottom:   0;
+}
+
+
+
