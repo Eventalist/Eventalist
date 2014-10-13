@@ -157,7 +157,7 @@ def sendEvents()
     Here are your events: \n\n
     #{email_text} \n\n
 
-    Click here to https://127.0.0.1:9292/subscriptions/#{user.id}"
+    Click here to http://127.0.0.1:9292/subscriptions/#{user.id}"
     }
 
     url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
@@ -216,12 +216,22 @@ post("/subscriptions") do
 end
 
 get("/subscriptions/:id") do 
+  binding.pry
   subscriptions = Subscription.where(user_id: params[:id])
   subscriptions.each do |sub|
     sub.destroy()
   end 
-  ("Your have unsubscribed from Eventalist").to_json
+  ("You have unsubscribed from Eventalist").to_json
 end 
+
+
+delete("/subscriptions/:email") do
+
+  email = params['email']
+
+binding.pry
+end
+
 
 post("/users") do
 
@@ -248,7 +258,7 @@ get ("/users/:id/subscriptions") do
   subject: "Thanks for subscribing to Eventalist!",
   text: "Hi #{user.name},\n\n
   You are now subscribed to #{categories.join(" & ")}.\n\n Enjoy using Eventalist! \n\n
-  Click here to https://127.0.0.1:9292/subscriptions/#{user.id}"
+  Click here to http://127.0.0.1:9292/subscriptions/#{user.id}"
   }
 
   url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"

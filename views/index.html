@@ -17,15 +17,8 @@
   <link rel="stylesheet" type="text/css" href="/styles.css">
   <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 
-	<!-- THIS DIDN'T WORK -->
-<!-- 	<link href='bootstrap.min.js'></link>
-	<link href='bootstrap.min.css'></link> -->
-
-	<script src='underscore.js'></script>
-	<script src='backbone.js'></script>
-
-	<script src='//cdnjs.cloudflare.com/ajax/libs/backbone.paginator/0.8/backbone.paginator.min.js'></script>
-
+  <script src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js'></script>
+  <script src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js'></script>
 
 </head>
 <body>
@@ -35,8 +28,6 @@
 		<header class='col-md-12'>
 			<h1>Eventalist</h1>
 		</header>
-
-		<!-- <button id="initialSubscribe" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#subscriptionView">Subscribe to Eventalist</button> -->
 
 	</div>
 
@@ -99,14 +90,17 @@
 
 <!-- TEMPLATE FOR EACH EVENT -->
 	<script id='template-event-list' type='text/template'>
+	
 	<div class='row'>
-		<h5 class="col-md-8"><%= title %></h5>
-		<button class='moreInfo btn btn-info pull-right' data-toggle='modal' data-target='#viewEvent'>More info</button>
+		<h5 class="col-md-12"><%= title %></h5>
 	</div>
 
 	<div class='row'>
-		<a class='col-md-4' href="http://www.<%= venue_website %>" target="_blank"><%= venue %></a><br>
+		<a class='col-md-12' href="http://www.<%= venue_website %>" target="_blank"><%= venue %></a><br>
+	</div>
 
+	<div class='row'>
+		<button class='moreInfo btn btn-info btn-xs col-md-4' data-toggle='modal' data-target='#viewEvent'>More info</button>
 	</div>
 
 	</script>

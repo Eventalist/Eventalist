@@ -41,7 +41,7 @@ var EventView = Backbone.View.extend({
 	tag: 'div',
 
 	attributes: {
-		class: "listItem col-md-12"
+		class: "listItem col-md-3"
 	},
 
 	template: _.template( $('#template-event-list').html() ),
@@ -232,7 +232,8 @@ routes: {
 	"music": "music",
 	"free": "free",
 	"nightlife": "nightlife",
-	"search": "search"
+	"search": "search",
+	"unsubscribe": "unsubscribe"
 
 	}, 
 })
@@ -286,6 +287,10 @@ router.on("route:search", function(){
 	var searchEventView = new SearchEventsView({collection: eventsCollection, el: $('ul.events'), attributes: {search: searchInput}})
 
 
+})
+
+router.on("route:unsubscribe", function(){
+	var unsubscribteView = new UnsubscribeView()
 })
 
 Backbone.history.start()
