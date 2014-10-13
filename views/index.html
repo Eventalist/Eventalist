@@ -125,8 +125,7 @@
 					<p><%= price %></p>
 					<a href="http://www.<%= venue_website %>" target="_blank"><%= venue %></a>
 					<p><%= address %></p>
-					<a href=<%= link%> target="_blank" >Event Link</a>
-          <div id="map-canvas" style="width: 25%; height: 25%"></div>
+					<a href=<%= link ? link : "http://www.google.com"%> target="_blank" >Event Link</a>
 				</script>
 
 			</div>
