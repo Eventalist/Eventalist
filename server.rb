@@ -219,7 +219,6 @@ get("/subscriptions/:id") do
   end
   ("You have unsubscribed from Eventalist").to_json
 end
->>>>>>> 261be0cc20af475a798f3a39ba5f7a9106fafb3a
 
 
 delete("/subscriptions/:email") do
