@@ -9,10 +9,14 @@ require 'httparty'
 require "nokogiri"
 require "open-uri"
 # require_relative './config/environments'
+<<<<<<< HEAD
 
 require_relative './lib/connection-tess'
 # require_relative './lib/connection-eric'
 # require_relative './lib/connection-yoshie'
+=======
+require_relative './lib/connection-yoshie'
+>>>>>>> d6815fb10c31cec8b75bbe3684c8c778f2d0c847
 
 
 
