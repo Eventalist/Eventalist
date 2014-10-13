@@ -12,7 +12,7 @@ var EventModel = Backbone.Model.extend({
 		category_id: 1,
 		address: 'NYC',
 		price: '$0',
-		link: 'http://www.gooogle.com',
+		link: 'http://www.google.com',
 		description: 'party party',
 		venue: "",
 		venure_website: "",
