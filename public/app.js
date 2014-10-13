@@ -170,6 +170,17 @@ $('ul.nav').on('click', function(event){
 	$(event.target).parent().toggleClass('active');
 })
 
+// $('.search').on('keyup', function(){
+// 	$('.events').html('<ul class="result">')
+// 	var events = eventsCollection.models;
+// 	var results = _.filter(events, function(event){
+// 		return event.attributes.title.toLowerCase().indexOf($('.search').val().toLowerCase()) != -1
+// 	});
+// 	results.forEach(function(result){
+// 		$('ul.result').append('<li>' + result.attributes.title + '</li>')
+// 	})
+// })
+
 var AppRouter = Backbone.Router.extend({
 routes: {
 	"": "index",
