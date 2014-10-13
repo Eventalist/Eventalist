@@ -18,8 +18,6 @@ require "open-uri"
 # require_relative './lib/connection-eric'
 require_relative './lib/connection-yoshie'
 
-# require_relative './lib/connection-tess'
-
 require_relative './lib/methods'
 
 after do
@@ -242,7 +240,7 @@ get ("/users/:id/subscriptions") do
   to: "#{user.name} <#{user.email}>",
   subject: "Thanks for subscribing to Eventalist!",
   text: "Hi #{user.name},\n\n
-  You are now subscribed to #{categories.join(" & ")}. Enjoy using Eventalist!"
+  You are now subscribed to #{categories.join(" & ")}.\n\n Enjoy using Eventalist!"
   }
 
   url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
