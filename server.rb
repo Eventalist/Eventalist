@@ -8,7 +8,7 @@ require 'pry'
 require 'httparty'
 require "nokogiri"
 require "open-uri"
-# require_relative './config/environments'
+#require_relative './config/environments'
 
 require_relative './lib/connection-tim'
 
