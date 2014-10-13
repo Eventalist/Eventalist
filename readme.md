@@ -2,7 +2,7 @@
 
 2) Timoor Kurdi, Yoshie Muranaka, Tess Shapiro, Eric Kramer.
 
-3) Some of the technologies used were Ruby, Javascript, Sinatra, Backbone.js, JQuery, NYTimes API, Nokogiri and Heroku for hosting.
+3) Some of the technologies used were Ruby, Javascript, Sinatra, Backbone.js, JQuery, NYTimes API, Nokogiri, Trello and Heroku for hosting.
 
 4) https://trello.com/b/B7G2klFK/boomboom
 
