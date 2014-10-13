@@ -107,6 +107,7 @@ var EventsListView = Backbone.View.extend({
 })
 
 //SEARCH EVENTS VIEW FILTERING BY EVENT TITLE------------
+
 var SearchEventsView = Backbone.View.extend({
 
 	initialize: function(){
@@ -157,7 +158,7 @@ var ModalView = Backbone.View.extend({
 })
 
 
-// Subscription ------------------------
+// SUBSCRIPTION MODAL ON CLICK ------------------------
 
 $("button#subscribeUser").on("click", function(){
 
@@ -168,7 +169,7 @@ $("button#subscribeUser").on("click", function(){
 	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
 
 		if ($("input.art").prop("checked") == true){
-			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id, category_id: 1})
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 1})
 		};
 		if ($("input.music").prop("checked") == true){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
@@ -177,11 +178,22 @@ $("button#subscribeUser").on("click", function(){
 			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
 		};
 
+		if ($("input.free").prop("checked") == true){
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
+		};
+
+		if ($("input.nightlife").prop("checked") == true){
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
+		};
+
 		$("input.name").val("");
 		$("input.email").val("");
 		$("input.art").prop("checked", false);
 		$("input.music").prop("checked", false);
 		$("input.theater").prop("checked", false);
+		$("input.free").prop("checked", false);
+		$("input.nightlife").prop("checked", false);
+
 		
 		var sendEmail = function(){
 			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
@@ -199,10 +211,11 @@ $('ul.nav').on('click', function(event){
 
 
 //INPUT FIELD LISTENING TO KEYDOWN ENTER & BACKSPACE
+
 $('input.search').on('keydown', function(e){
 	if (e.keyCode == 13){
 		$('i.glyphicon').trigger('click')
-	} else if (e.keyCode == 8 && $('input.search').val() == ""){
+	} else if (e.keyCode == 8 && ($('input.search').val()).length == 1){
 		$('#home').trigger('click')
 		$('#home').parent().parent().toggleClass('active')
 	}
@@ -217,6 +230,8 @@ routes: {
 	"art": "art",
 	"theater": "theater",
 	"music": "music",
+	"free": "free",
+	"nightlife": "nightlife",
 	"search": "search"
 
 	}, 
@@ -228,6 +243,13 @@ var router = new AppRouter();
 
 router.on("route:index", function(){
 	var allEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 0}})
+
+})
+
+
+router.on("route:music", function(){
+
+	var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 1}})
 
 })
 
@@ -243,9 +265,17 @@ router.on("route:theater", function(){
 
 })
 
-router.on("route:music", function(){
 
-	var musicEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 1}})
+router.on("route:free", function(){
+
+	var freeEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 4}})
+
+})
+
+
+router.on("route:nightlife", function(){
+
+	var nightlifeEventsView = new EventsListView({collection: eventsCollection, el: $('ul.events'), attributes: {category_id: 5}})
 
 })
 
