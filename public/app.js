@@ -212,15 +212,14 @@ $('ul.nav').on('click', function(event){
 
 //INPUT FIELD LISTENING TO KEYDOWN ENTER & BACKSPACE
 
-$('input.search').on('keydown', function(e){
+$('input.search').on('keyup', function(e){
 	if (e.keyCode == 13){
 		$('i.glyphicon').trigger('click')
-	} else if (e.keyCode == 8 && ($('input.search').val()).length == 1){
+	} else if (e.keyCode == 8 && $('input.search').val() == ''){
 		$('#home').trigger('click')
 		$('#home').parent().parent().toggleClass('active')
 	}
 })
-
 
 
 //OUR APP ROUTER
@@ -233,7 +232,6 @@ routes: {
 	"free": "free",
 	"nightlife": "nightlife",
 	"search": "search",
-	"unsubscribe": "unsubscribe"
 
 	}, 
 })
@@ -289,9 +287,6 @@ router.on("route:search", function(){
 
 })
 
-router.on("route:unsubscribe", function(){
-	var unsubscribteView = new UnsubscribeView()
-})
 
 Backbone.history.start()
 
