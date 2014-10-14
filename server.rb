@@ -1,17 +1,7 @@
-# require 'bundler/setup'
-# Bundler.require(:default)
+require 'bundler/setup'
+Bundler.require(:default)
 
-require 'active_record'
-require 'sinatra'
-require 'sinatra/reloader'
-require 'pry'
-require 'httparty'
-require "nokogiri"
-require "open-uri"
-# require_relative './config/environments'
-# require_relative './lib/connection-tim'
-require_relative './lib/connection-eric'
-# require_relative './lib/connection-yoshie'
+require_relative './lib/connection'
 require_relative './lib/methods'
 
 after do
