@@ -219,7 +219,6 @@ end
 
 
 post("/users") do
-  response['Access-Control-Allow-Origin'] = '*'
 
   user = User.create(user_params(params))
 
