@@ -164,6 +164,8 @@ def getEvents()
 
   scrapeNycNightlife()
 
+  scrapeNycFree()
+
 end
 
 def newEvents()
@@ -176,8 +178,6 @@ def newEvents()
     sendEvents()
   end
 end
-
-scrapeNycFree()
 
 newEvents()
 
@@ -219,7 +219,7 @@ end
 
 
 post("/users") do
-
+  
   user = User.create(user_params(params))
 
 
@@ -250,7 +250,8 @@ get ("/users/:id/subscriptions") do
   HTTParty.post(url, {body: email_info, basic_auth: auth})
 
 
-  return ("email has been sent!").to_json
+  return ("email has been sent!").to_JSON
+
 end
 
 def subscription_params(params)
