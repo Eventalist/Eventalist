@@ -10,6 +10,7 @@ end
 
 before do
   content_type :json
+  response['Access-Control-Allow-Origin'] = '*'
 end
 
 def checkEndpoint(endpoint)
@@ -151,6 +152,7 @@ def sendEvents()
   end
 
 end 
+
 def getEvents()
   pop = HTTParty.get('http://api.nytimes.com/svc/events/v2/listings.json?filters=category:Pop&date_range:2014-10-10&api-key=bd9c3678d4d278b91d84b1082d19d548:15:65256769')
   parseNYTimes(pop, 'music')
@@ -177,6 +179,8 @@ def newEvents()
     sendEvents()
   end
 end
+
+scrapeNycFree()
 
 newEvents()
 
@@ -241,9 +245,7 @@ get ("/users/:id/subscriptions") do
   from: "Eventalist <postmaster@sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org>",
   to: "#{user.name} <#{user.email}>",
   subject: "Thanks for subscribing to Eventalist!",
-  text: "Hi #{user.name},\n\n
-  You are now subscribed to #{categories.join(" & ")}.\n\n Enjoy using Eventalist! \n\n
-  Click here to http://127.0.0.1:9292/subscriptions/#{user.id}"
+  text: "Hi #{user.name},\n\nYou are now subscribed to #{categories.join(" & ")}.\n\n\nEnjoy using Eventalist!\n\n\nClick here to unsubscribe http://127.0.0.1:9292/subscriptions/#{user.id}"
   }
 
   url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
