@@ -13,11 +13,12 @@ nav {
 
 h1 {
   text-align: center;
-  font-size: 175px;
+  font-size: 130px;
   height: 250px;
   color: #FFF;
-	padding-top: 40px;
+	padding-top: 60px;
 	text-transform: uppercase;
+	text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 	letter-spacing: 7px;
 	background-image: url('http://the305.com/blog/wp-content/uploads/2014/01/livmiami2.jpg');
 	background-position: center;
