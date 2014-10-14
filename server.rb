@@ -181,9 +181,6 @@ end
 
 newEvents()
 
-scrapeNycFree()
-
-
 get("/") do
 
   content_type :html
