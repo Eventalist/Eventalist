@@ -9,6 +9,7 @@ after do
 end
 
 before do
+  response.headers['Access-Control-Allow-Origin'] = '*'
   content_type :json
 end
 
