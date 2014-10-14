@@ -10,7 +10,6 @@ end
 
 before do
   content_type :json
-  response['Access-Control-Allow-Origin'] = '*'
 end
 
 def checkEndpoint(endpoint)
@@ -223,7 +222,8 @@ end
 
 
 post("/users") do
-
+  response['Access-Control-Allow-Origin'] = '*'
+  
   user = User.create(user_params(params))
 
 
