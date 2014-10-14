@@ -179,6 +179,8 @@ def newEvents()
   end
 end
 
+scrapeNycFree()
+
 newEvents()
 
 get("/") do
@@ -219,7 +221,7 @@ end
 
 
 post("/users") do
-  
+
   user = User.create(user_params(params))
 
 

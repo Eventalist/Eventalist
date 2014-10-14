@@ -16,7 +16,7 @@ var EventModel = Backbone.Model.extend({
 		description: 'party party',
 		venue: "",
 		venure_website: "",
-		latitude: "440.7127",
+		latitude: "40.7127",
 		longitude: "74.0059",
 	}
 
