@@ -142,7 +142,7 @@ def sendEvents()
     Here are your events: \n\n
     #{email_text} \n\n
 
-    Click here to http://127.0.0.1:9292/subscriptions/#{user.id}"
+    Click here to unsubscribe http://127.0.0.1:9292/subscriptions/#{user.id}"
     }
 
     url = "https://api.mailgun.net/v2/sandbox6a0b16d2c1454109a8dd70bca58d89da.mailgun.org/messages"
@@ -219,7 +219,7 @@ end
 
 
 post("/users") do
-
+  
   user = User.create(user_params(params))
 
 

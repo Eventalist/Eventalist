@@ -166,24 +166,24 @@ $("button#subscribeUser").on("click", function(){
 	var email = $("input.email").val();
 
 
-	$.post("http://108.46.156.102:3000/users", {name: name, email: email}, function(user){		
+	$.post("http://127.0.0.1:9292/users", {name: name, email: email}, function(user){		
 
 		if ($("input.art").prop("checked") == true){
-			$.post("http://108.46.156.102:3000/subscriptions", {user_id: user.id,name: name, email: email, category_id: 1})
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 1})
 		};
 		if ($("input.music").prop("checked") == true){
-			$.post("http://108.46.156.102:3000/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
 		};
 		if ($("input.theater").prop("checked") == true){
-			$.post("http://108.46.156.102:3000/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
 		};
 
 		if ($("input.free").prop("checked") == true){
-			$.post("http://108.46.156.102:3000/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
 		};
 
 		if ($("input.nightlife").prop("checked") == true){
-			$.post("http://108.46.156.102:3000/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
+			$.post("http://127.0.0.1:9292/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
 		};
 
 		$("input.name").val("");
@@ -196,7 +196,7 @@ $("button#subscribeUser").on("click", function(){
 
 		
 		var sendEmail = function(){
-			$.get('http://108.46.156.102:3000/users/' + user.id + '/subscriptions')
+			$.get('http://127.0.0.1:9292/users/' + user.id + '/subscriptions')
 		}
 		setTimeout(sendEmail, 2000);
 	})
