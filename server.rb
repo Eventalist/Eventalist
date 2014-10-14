@@ -164,8 +164,6 @@ def getEvents()
 
   scrapeNycNightlife()
 
-  scrapeNycFree()
-
 end
 
 def newEvents()
