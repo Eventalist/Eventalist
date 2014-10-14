@@ -179,8 +179,6 @@ def newEvents()
   end
 end
 
-scrapeNycFree()
-
 newEvents()
 
 get("/") do
@@ -217,13 +215,12 @@ delete("/subscriptions/:email") do
 
   email = params['email']
 
-binding.pry
 end
 
 
 post("/users") do
   response['Access-Control-Allow-Origin'] = '*'
-  
+
   user = User.create(user_params(params))
 
 
