@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 require 'bundler/setup'
 Bundler.require(:default)
 
