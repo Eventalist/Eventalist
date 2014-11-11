@@ -166,24 +166,24 @@ $("button#subscribeUser").on("click", function(){
 	var email = $("input.email").val();
 
 
-	$.post("http://dry-fortress-4851.herokuapp.com/users", {name: name, email: email}, function(user){		
+	$.post("/users", {name: name, email: email}, function(user){		
 
 		if ($("input.art").prop("checked") == true){
-			$.post("http://dry-fortress-4851.herokuapp.com/subscriptions", {user_id: user.id,name: name, email: email, category_id: 1})
+			$.post("/subscriptions", {user_id: user.id,name: name, email: email, category_id: 1})
 		};
 		if ($("input.music").prop("checked") == true){
-			$.post("http://dry-fortress-4851.herokuapp.com/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
+			$.post("/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
 		};
 		if ($("input.theater").prop("checked") == true){
-			$.post("http://dry-fortress-4851.herokuapp.com/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
+			$.post("/subscriptions", {user_id: user.id,name: name, email: email, category_id: 3})
 		};
 
 		if ($("input.free").prop("checked") == true){
-			$.post("http://dry-fortress-4851.herokuapp.com/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
+			$.post("/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
 		};
 
 		if ($("input.nightlife").prop("checked") == true){
-			$.post("http://dry-fortress-4851.herokuapp.com/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
+			$.post("/subscriptions", {user_id: user.id,name: name, email: email, category_id: 4})
 		};
 
 		$("input.name").val("");
@@ -196,7 +196,7 @@ $("button#subscribeUser").on("click", function(){
 
 		
 		var sendEmail = function(){
-			$.get('http://dry-fortress-4851.herokuapp.com/users/' + user.id + '/subscriptions')
+			$.get('/users/' + user.id + '/subscriptions')
 		}
 		setTimeout(sendEmail, 2000);
 	})

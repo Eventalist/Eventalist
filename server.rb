@@ -250,7 +250,7 @@ get ("/users/:id/subscriptions") do
   HTTParty.post(url, {body: email_info, basic_auth: auth})
 
 
-  return ("email has been sent!").to_JSON
+  return ("email has been sent!").to_json
 
 end
 
