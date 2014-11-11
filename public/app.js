@@ -168,10 +168,10 @@ $("button#subscribeUser").on("click", function(){
 
 	$.post("/users", {name: name, email: email}, function(user){		
 
-		if ($("input.art").prop("checked") == true){
+		if ($("input.music").prop("checked") == true){
 			$.post("/subscriptions", {user_id: user.id,name: name, email: email, category_id: 1})
 		};
-		if ($("input.music").prop("checked") == true){
+		if ($("input.art").prop("checked") == true){
 			$.post("/subscriptions", {user_id: user.id,name: name, email: email, category_id: 2})
 		};
 		if ($("input.theater").prop("checked") == true){

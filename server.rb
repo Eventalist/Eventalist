@@ -202,7 +202,6 @@ post("/subscriptions") do
 end
 
 get("/subscriptions/:id") do 
-  binding.pry
   subscriptions = Subscription.where(user_id: params[:id])
   subscriptions.each do |sub|
     sub.destroy()
