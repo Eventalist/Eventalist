@@ -39,6 +39,7 @@ button#initialSubscribe{
 	padding-bottom: 0;
 	background-color: #FFF;
 	margin: 0 auto;
+	min-width: 25%;
 }
 
 ul {

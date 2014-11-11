@@ -2,6 +2,7 @@ require 'bundler/setup'
 Bundler.require(:default)
 
 require_relative './config/environments'
+require_relative './lib/connection'
 require_relative './lib/methods'
 
 after do
